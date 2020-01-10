@@ -9,3 +9,19 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - redis
+    links:
+      - redis
+    networks: 
+      - backend
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks: 
+      - backend
+networks:
+  backend:
+    driver: "bridge"
+    external: true

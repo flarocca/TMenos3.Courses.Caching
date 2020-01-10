@@ -11,7 +11,7 @@ API Final implementation including an implementation of the Cached Repository pa
 API using IDistributedCache with two different implementations, MemoryCache for development enrivonment and RedisCache for non-development environments
 
 #### redis-api
-API using Redis cache, no dependency injection
+API using Redis cache
 
 #### base-api
 API without caching, starting point.

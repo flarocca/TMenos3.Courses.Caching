@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  tmenos3.courses.netcore.distributedcache.api:
+    image: ${DOCKER_REGISTRY-}tmenos3distributedcache
+    build:
+      context: .
+      dockerfile: src/TMenos3.Courses.NetCore.DistributedCache.API/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"

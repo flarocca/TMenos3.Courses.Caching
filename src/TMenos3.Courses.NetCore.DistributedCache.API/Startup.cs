@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StackExchange.Redis;
 using TMenos3.Courses.NetCore.DistributedCache.API.Repositories;
 
 namespace TMenos3.Courses.NetCore.DistributedCache.API
@@ -21,6 +22,11 @@ namespace TMenos3.Courses.NetCore.DistributedCache.API
             services.AddControllers();
 
             services.AddScoped<IValuesRepository, ValuesRepository>();
+
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
+            var cache = connectionMultiplexer.GetDatabase();
+
+            services.AddSingleton(cache);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

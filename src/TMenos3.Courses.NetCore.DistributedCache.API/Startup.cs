@@ -30,11 +30,13 @@ namespace TMenos3.Courses.NetCore.DistributedCache.API
             else
             {
                 services.AddDistributedRedisCache(options =>
-                    options.Configuration = Configuration.GetConnectionString("Redis")
-                );
+                {
+                    options.Configuration = Configuration.GetConnectionString("Redis");
+                });
             }
 
-            services.AddScoped<IValuesRepository, ValuesRepository>();
+            services.AddScoped<ValuesRepository>();
+            services.AddScoped<IValuesRepository, CachedValuesRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,16 +46,13 @@ namespace TMenos3.Courses.NetCore.DistributedCache.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseHttpsRedirection()
+               .UseRouting()
+               .UseAuthorization()
+               .UseEndpoints(endpoints =>
+               {
+                   endpoints.MapControllers();
+               });
         }
     }
 }

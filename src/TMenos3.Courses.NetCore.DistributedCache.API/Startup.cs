@@ -34,7 +34,8 @@ namespace TMenos3.Courses.NetCore.DistributedCache.API
                 );
             }
 
-            services.AddScoped<IValuesRepository, ValuesRepository>();
+            services.AddScoped<ValuesRepository>();
+            services.AddScoped<IValuesRepository, CachedValuesRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
